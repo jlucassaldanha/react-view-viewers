@@ -10,12 +10,12 @@ import IconUser from "./components/IconUser";
 function App() {
   return (
     <div>
-      <header>
+      <header className="bg-gray-700 p-3">
         <h2>Espectadores</h2>
       </header>
       <Counter count={5} />
       <UserSection icon={<IconMod />} users={5} type={"Moderadores"} />
-      <UserSection icon={<IconUser />} users={5} type={"Usuários"}/>
+      <UserSection icon={<IconUser fillColor="fill-white" />} users={5} type={"Usuários"}/>
     </div>
   );
 }
