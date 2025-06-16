@@ -13,12 +13,12 @@ import Header from "./components/Header";
 function App() {
   const users = [{
     img: "https://lh3.googleusercontent.com/a/ACg8ocI34zVJyKA4L4Jk2HbQD8dFe0-yDMKFCSzH9YrPV-D6AUom9Ew=s288-c-no",
-    name: "nome",
+    name: "João",
     userURL: 2
   },
   {
     img: "https://lh3.googleusercontent.com/a/ACg8ocI34zVJyKA4L4Jk2HbQD8dFe0-yDMKFCSzH9YrPV-D6AUom9Ew=s288-c-no",
-    name: "nome2",
+    name: "Lucas",
     userURL: 2
   }
   ]
