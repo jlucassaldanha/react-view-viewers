@@ -6,13 +6,12 @@ import UserSection from "./components/UserSection";
 import Counter from "./components/Counter";
 import IconMod from "./components/IconMod";
 import IconUser from "./components/IconUser";
+import Header from "./components/Header";
 
 function App() {
   return (
     <div>
-      <header className="bg-gray-700 p-3">
-        <h2>Espectadores</h2>
-      </header>
+      <Header />
       <Counter count={5} />
       <UserSection icon={<IconMod />} users={5} type={"Moderadores"} />
       <UserSection icon={<IconUser fillColor="fill-white" />} users={5} type={"Usuários"}/>

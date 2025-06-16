@@ -15,7 +15,7 @@ function UserSection({ icon, users, type }) {
 
   return (
     <div>
-      <div className="flex gap-2 mt-10 ml-10 bg-gray-900 pl-1.5 py-1.5">
+      <div className="flex gap-2 mt-8 ml-8 mr-8 bg-[#1F1F23] pl-1.5 py-1.5">
         {icon}
         <p>{`${users} ${type}`}</p>
       </div>
