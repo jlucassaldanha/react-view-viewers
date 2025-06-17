@@ -15,6 +15,11 @@ function App() {
       userName: "ojoojao",
       id: 2,
     },
+    {
+      profileImgURL: "https://static-cdn.jtvnw.net/jtv_user_pictures/c13a4be0-1fa3-4727-a070-efb995966b35-profile_image-70x70.png",
+      userName: "ojoojao",
+      id: 2,
+    },
   ];
 
   const users = [
