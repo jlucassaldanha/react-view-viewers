@@ -31,13 +31,15 @@ function App() {
   const [mods, setMods] = useState([])
   const [users, setUsers] = useState([]) 
   
+  /*
   useEffect(() => {
     const getViewers = async () => {
-      const response = await fetch('API');
+      const response = await fetch('http://127.0.0.1:5000/api/credentials"');
       const data = await response.json();
 
       setMods(data.mods);
       setUsers(data.users);
+      console.log(data);
     };    
 
     getViewers();
@@ -45,6 +47,7 @@ function App() {
 
     return () => clearInterval(interval);
   }, []);
+  */
 
   return (
     <div>
