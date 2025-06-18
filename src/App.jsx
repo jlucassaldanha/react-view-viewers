@@ -30,7 +30,22 @@ const _mods = [
 function App() {
   const [mods, setMods] = useState([])
   const [users, setUsers] = useState([]) 
+  const [creds, setCreds] = useState([])
   
+  useEffect(() => {
+    const getCreds = async () => {
+      const response = await fetch('http://127.0.0.1:5000/api/credentials');
+      const data = await response.json();
+
+      setCreds(data);
+    };    
+
+    getCreds();
+    const interval = setInterval(getCreds, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   /*
   useEffect(() => {
     const getViewers = async () => {
@@ -49,6 +64,8 @@ function App() {
   }, []);
   */
 
+
+
   return (
     <div>
       <Header />
@@ -63,6 +80,7 @@ function App() {
         type={"Usuários"}
         users={users}
       />
+      <a href="https://id.twitch.tv/oauth2/authorize?[parameters]">Connect with Twitch</a>
     </div>
   );
 }
