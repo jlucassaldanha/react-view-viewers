@@ -40,8 +40,11 @@ function App() {
   }
 
   function onGetChatters() {
-    api.get(`/chat/chatters?broadcaster_id=${chanel}&moderator_id=${mod}`).then((r) => {  
-        setChatters(r.data.data)
+    api.get(`/chat/chatters?broadcaster_id=${chanel}&moderator_id=${mod}`).then((r) => { 
+        const users_ids = r.data.data.map((user) => {
+          return user.id;
+        }); 
+        setChatters(users_ids);
       }).catch((err) => console.error("Erro: " + err));
   }
 
@@ -53,7 +56,8 @@ function App() {
       <UserSection 
         icon={<IconMod />} 
         type={"Moderadores"} 
-        users={chatters} 
+        users={chatters}
+        chanel={chanel} 
       />
       <UserSection
         icon={<IconUser fillColor="fill-white" />}

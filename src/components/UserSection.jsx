@@ -2,11 +2,29 @@ import { useState } from "react";
 import User from "./User";
 import api from "../Api";
 
-function UserSection({ icon, type, users }) {
+function UserSection({ icon, type, users, chanel }) {
   const [usersInfo, setUsersInfo] = useState()
+  const [mods, setMods] = useState()
 
-  function onGetModsInfo() {
-    api.get("/moderation/moderators")
+
+  function onGetMods() {
+    let ids = ""
+    for(i in users) {
+      ids += `&user_id=${users[i]}`
+    }
+
+    api.get(`/moderation/moderators?broadcaster_id=${chanel}${ids}`)
+        .then((r) => { 
+          // colocar map aqui para pegar os ids
+          let mods = r.data.data.map((mod) => {
+            return mod.id;
+          })
+          setMods(mods)
+        }).catch((err) => "Erro: "+err)
+  }
+
+  function divideUsers() {
+
   }
 
   function onGetUsersInfo() {
