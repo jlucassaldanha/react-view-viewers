@@ -6,11 +6,11 @@ function UserSection({ icon, type, users }) {
   const [usersInfo, setUsersInfo] = useState()
 
   function onGetModsInfo() {
-    api.get()
+    api.get("/moderation/moderators")
   }
 
   function onGetUsersInfo() {
-    api.get()
+   
   }
 
   return (
