@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import "./App.css";
 import UserSection from "./components/UserSection";
 import Counter from "./components/Counter";
@@ -28,48 +29,25 @@ const _mods = [
     },
   ];
 function App() {
-  const [mods, setMods] = useState([])
-  const [users, setUsers] = useState([]) 
-  const [creds, setCreds] = useState([])
-  
-  useEffect(() => {
-    const getCreds = async () => {
-      const response = await fetch('http://127.0.0.1:5000/api/credentials');
-      const data = await response.json();
+  const [token, setToken] = useState("")
 
-      setCreds(data);
-    };    
+  window.onload = () => setToken(
+    document.location.hash
+  )
 
-    getCreds();
-    const interval = setInterval(getCreds, 5000);
+  const api = axios.create({
+    baseURL: "https://api.twitch.tv/helix",
+  });
 
-    return () => clearInterval(interval);
-  }, []);
-
-  /*
-  useEffect(() => {
-    const getViewers = async () => {
-      const response = await fetch('http://127.0.0.1:5000/api/credentials"');
-      const data = await response.json();
-
-      setMods(data.mods);
-      setUsers(data.users);
-      console.log(data);
-    };    
-
-    getViewers();
-    const interval = setInterval(getViewers, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-  */
-
-
+  api.defaults.headers.common = {
+    Authorization: `Bearer ${token.slice(token.indexOf("#access_token=")+14, token.indexOf("&scope"))}`,
+    "Client-Id": "hatjqubn1mwj09m17p6tdfmj983tim",
+  };
 
   return (
     <div>
       <Header />
-      <Counter count={users.length + mods.length} />
+      {/*<Counter count={users.length + mods.length} />
       <UserSection 
         icon={<IconMod />} 
         type={"Moderadores"} 
@@ -79,8 +57,10 @@ function App() {
         icon={<IconUser fillColor="fill-white" />}
         type={"Usuários"}
         users={users}
-      />
-      <a href="https://id.twitch.tv/oauth2/authorize?[parameters]">Connect with Twitch</a>
+      />*/}
+      <div className="text-amber-100">
+        {token.slice(token.indexOf("#access_token=")+14, token.indexOf("&scope"))}
+      </div> 
     </div>
   );
 }
