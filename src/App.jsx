@@ -29,11 +29,18 @@ const _mods = [
     },
   ];
 function App() {
-  const [token, setToken] = useState("")
+  const [token, setToken] = useState("");
+  const [chanel, setChanel] = useState(0);
+  const [mod, setMod] = useState(0);
+  const [chatters, setChatters] = useState([]);
 
-  window.onload = () => setToken(
-    document.location.hash
-  )
+  const chanel_login = "ojoojao";
+  const mod_login = chanel_login;
+
+  window.onload = () => {
+    setToken(document.location.hash)
+  
+  }
 
   const api = axios.create({
     baseURL: "https://api.twitch.tv/helix",
@@ -43,6 +50,24 @@ function App() {
     Authorization: `Bearer ${token.slice(token.indexOf("#access_token=")+14, token.indexOf("&scope"))}`,
     "Client-Id": "hatjqubn1mwj09m17p6tdfmj983tim",
   };
+  
+  function onGetChanel() {
+    api.get(`/users?login=${chanel_login}`).then((r) => {  
+        setChanel(r.data.data[0].id)
+      }).catch((err) => console.error("Erro: " + err));
+  }
+
+  function onGetMod() {
+    api.get(`/users?login=${mod_login}`).then((r) => {  
+        setMod(r.data.data[0].id)
+      }).catch((err) => console.error("Erro: " + err));
+  }
+
+  function onGetChatters() {
+    api.get(`/chat/chatters?broadcaster_id=${chanel}&moderator_id=${mod}`).then((r) => {  
+        setChatters(r.data.data)
+      }).catch((err) => console.error("Erro: " + err));
+  }
 
   return (
     <div>
@@ -58,8 +83,14 @@ function App() {
         type={"Usuários"}
         users={users}
       />*/}
+      
+      <div>{onGetChanel()}{onGetMod()}{onGetChatters()}</div>
+      
       <div className="text-amber-100">
         {token.slice(token.indexOf("#access_token=")+14, token.indexOf("&scope"))}
+        {chanel}
+        {mod}
+        {JSON.stringify(chatters)}
       </div> 
     </div>
   );
