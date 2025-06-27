@@ -6,4 +6,12 @@
     margin: 0px;
     padding: 0px;
   }
+
+  details > summary {
+    list-style: none;
+  }
+
+  details > summary::-webkit-details-marker {
+      display: none;
+  }
 }
