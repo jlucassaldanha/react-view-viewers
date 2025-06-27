@@ -10,8 +10,8 @@ import Header from "./components/Header";
 
 function App() {
   const [token, setToken] = useState("");
-  const [chanel, setChanel] = useState(0);
-  const [mod, setMod] = useState(0);
+  const [chanel, setChanel] = useState(localStorage.getItem("chanel") || 0);
+  const [mod, setMod] = useState(localStorage.getItem("mod") || 0);
   const [chatters, setChatters] = useState([]);
 
   const chanel_login = "ojoojao";
@@ -27,7 +27,7 @@ function App() {
     "Client-Id": "hatjqubn1mwj09m17p6tdfmj983tim",
   };
   
-  function onGetChanel() {
+  /*function onGetChanel() {
     api.get(`/users?login=${chanel_login}`).then((r) => {  
         setChanel(r.data.data[0].id)
       }).catch((err) => console.error("Erro: " + err));
@@ -37,20 +37,46 @@ function App() {
     api.get(`/users?login=${mod_login}`).then((r) => {  
         setMod(r.data.data[0].id)
       }).catch((err) => console.error("Erro: " + err));
-  }
+  }*/
 
-  function onGetChatters() {
+  useEffect(() => {
+    api.get(`/users?login=${chanel_login}`).then((r) => {  
+        setChanel(r.data.data[0].id)
+        localStorage.setItem("chanel", r.data.data[0].id)
+      }).catch((err) => console.error("Erro: " + err));
+  }, [token])
+
+  useEffect(() => {
+    api.get(`/users?login=${mod_login}`).then((r) => {  
+        setMod(r.data.data[0].id)
+        localStorage.setItem("mod", r.data.data[0].id)
+      }).catch((err) => console.error("Erro: " + err));
+  }, [token])
+
+  /*function onGetChatters() {
     api.get(`/chat/chatters?broadcaster_id=${chanel}&moderator_id=${mod}`).then((r) => { 
         const users_ids = r.data.data.map((user) => {
           return user.user_id;
         }); 
         setChatters(users_ids);
       }).catch((err) => console.error("Erro: " + err));
-  }
+  }*/
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      api.get(`/chat/chatters?broadcaster_id=${chanel}&moderator_id=${mod}`).then((r) => { 
+          const users_ids = r.data.data.map((user) => {
+            return user.user_id;
+          }); 
+          setChatters(users_ids);
+        }).catch((err) => console.error("Erro: " + err));
+      }, 1000)
+      
+        return () => clearInterval(interval)
+  }, [])
 
   return (
     <div>
-      <div>{onGetChanel()}{onGetMod()}{onGetChatters()}</div>
       <Header />
       <Counter count={chatters.length} />
       <UserSection 

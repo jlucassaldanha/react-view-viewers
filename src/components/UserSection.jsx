@@ -10,8 +10,8 @@ function UserSection({ icon, type, users, chanel }) {
 
   function onGetMods() {
     let ids = ""
-    for(i in users) {
-      ids += `&user_id=${users[i]}`
+    for(let u in users) {
+      ids += `&user_id=${users[u]}`
     }
 
     api.get(`/moderation/moderators?broadcaster_id=${chanel}${ids}`)
@@ -45,10 +45,10 @@ function UserSection({ icon, type, users, chanel }) {
 
       api.get(`/users?id=${IDs[0]}${ids}`).then((r) => { 
         data = []
-        for (let i in r.data.data) {
-          data[i] = {
-            username:r.data.data[i].display_name,
-            profileImgURL:r.data.data[i].profile_image_url
+        for (let d in r.data.data) {
+          data[d] = {
+            username:r.data.data[d].display_name,
+            profileImgURL:r.data.data[d].profile_image_url
           }
         }
         setUsersInfos(data)
