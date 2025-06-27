@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import User from "./User";
 import api from "../Api";
-import { use } from "react";
 
 function UserSection({ icon, type, chatters, chanel }) {
   const [IDs, setIDs] = useState([]);
   const [mods, setMods] = useState([]);
   const [usersInfos, setUsersInfos] = useState([]);
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     let ids = "";
@@ -35,28 +35,32 @@ function UserSection({ icon, type, chatters, chanel }) {
   }, [mods]);
 
   useEffect(() => {
-    console.log(IDs);
-  }, [IDs]);
+    if (IDs.length > 0) {
+      let ids = "";
+      for (let i = 1; i < IDs.length; i++) {
+        ids += `&id=${IDs[i]}`;
+      }
 
-  useEffect(() => {
-    let ids = "";
-    for (let i = 1; i < IDs.length; i++) {
-      ids += `&id=${IDs[i]}`;
+      api
+        .get(`/users?id=${IDs[0]}${ids}`)
+        .then((r) => {
+          let data = [];
+          for (let d in r.data.data) {
+            data[d] = {
+              id: r.data.data[d].id,
+              username: r.data.data[d].display_name,
+              profileImgURL: r.data.data[d].profile_image_url,
+            };
+          }
+          
+          setUsersInfos(data.sort(function(a, b) {
+            return a.id - b.id;
+          }));
+
+          //setUsersInfos(data);
+        })
+        .catch((err) => console.error("Erro: " + err));
     }
-
-    api
-      .get(`/users?id=${IDs[0]}${ids}`)
-      .then((r) => {
-        let data = [];
-        for (let d in r.data.data) {
-          data[d] = {
-            username: r.data.data[d].display_name,
-            profileImgURL: r.data.data[d].profile_image_url,
-          };
-        }
-        setUsersInfos(data);
-      })
-      .catch((err) => console.error("Erro: " + err));
   }, [IDs]);
 
   return (
@@ -66,10 +70,6 @@ function UserSection({ icon, type, chatters, chanel }) {
         <p>{`${usersInfos.length} ${type}`}</p>
       </div>
       <User users={usersInfos} />
-      <div>
-        {mods}
-        {IDs}
-      </div>
     </div>
   );
 }

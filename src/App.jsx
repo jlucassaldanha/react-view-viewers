@@ -56,6 +56,7 @@ function App() {
           const users_ids = r.data.data.map((user) => {
             return user.user_id;
           });
+
           setChatters(users_ids);
         })
         .catch((err) => console.error("Erro: " + err));
@@ -80,16 +81,6 @@ function App() {
         chatters={chatters}
         chanel={chanel}
       />
-
-      <div className="text-amber-100">
-        {token.slice(
-          token.indexOf("#access_token=") + 14,
-          token.indexOf("&scope")
-        )}
-        {chanel}
-        {mod}
-        {JSON.stringify(chatters)}
-      </div>
     </div>
   );
 }

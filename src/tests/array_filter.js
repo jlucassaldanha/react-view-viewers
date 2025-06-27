@@ -6,3 +6,9 @@ const dif2 = arr1.filter(item => !dif1.includes(item))
 
 console.log(dif1)
 console.log(dif2)
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+arr.splice(1, 1)
+
+console.log(arr)
