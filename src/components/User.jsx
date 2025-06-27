@@ -9,8 +9,8 @@ function User({ users }) {
             alt="Profile Picture"
           />
           <span>•</span>
-          <a href={`https://twitch.tv/${user.userName}`} target="_blank">
-            <strong className="text-[#BE93FE]">{user.userName}</strong>
+          <a href={`https://twitch.tv/${user.username}`} target="_blank">
+            <strong className="text-[#BE93FE]">{user.username}</strong>
           </a>
         </div>
       ))}

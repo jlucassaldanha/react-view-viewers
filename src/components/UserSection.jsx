@@ -1,62 +1,63 @@
 import { useEffect, useState } from "react";
 import User from "./User";
 import api from "../Api";
+import { use } from "react";
 
-function UserSection({ icon, type, users, chanel }) {
-  const [IDs, setIDs] = useState([])
-  const [mods, setMods] = useState([])
-  const [usersInfos, setUsersInfos] = useState([])
-
-
-  function onGetMods() {
-    let ids = ""
-    for(let u in users) {
-      ids += `&user_id=${users[u]}`
-    }
-
-    api.get(`/moderation/moderators?broadcaster_id=${chanel}${ids}`)
-        .then((r) => { 
-          // colocar map aqui para pegar os ids
-          let mods = r.data.data.map((mod) => {
-            return mod.id;
-          })
-          setMods(mods)
-        }).catch((err) => "Erro: "+err)
-  }
-
-  function onGetIds() {
-    onGetMods()
-
-    if (type == "Moderadores") {
-      setIDs(mods)
-    } else if (type == "Usuários") {
-      setIDs(users.filter(item => !mods.include(item)))
-    }
-  }
+function UserSection({ icon, type, chatters, chanel }) {
+  const [IDs, setIDs] = useState([]);
+  const [mods, setMods] = useState([]);
+  const [usersInfos, setUsersInfos] = useState([]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      onGetIds()
+    let ids = "";
+    for (let u in chatters) {
+      ids += `&user_id=${chatters[u]}`;
+    }
 
-      let ids = ""
-      for(let i = 1; i < IDs.length; i++) {
-        ids += `&id=${IDs[i]}`
-      }
+    api
+      .get(`/moderation/moderators?broadcaster_id=${chanel}${ids}`)
+      .then((r) => {
+        // colocar map aqui para pegar os ids
+        let mods = r.data.data.map((mod) => {
+          return mod.user_id;
+        });
+        setMods(mods);
+      })
+      .catch((err) => "Erro: " + err);
+  }, [chatters]);
 
-      api.get(`/users?id=${IDs[0]}${ids}`).then((r) => { 
-        data = []
+  useEffect(() => {
+    if (type == "Moderadores") {
+      setIDs(mods);
+    } else if (type == "Usuários") {
+      setIDs(chatters.filter((item) => !mods.includes(item)));
+    }
+  }, [mods]);
+
+  useEffect(() => {
+    console.log(IDs);
+  }, [IDs]);
+
+  useEffect(() => {
+    let ids = "";
+    for (let i = 1; i < IDs.length; i++) {
+      ids += `&id=${IDs[i]}`;
+    }
+
+    api
+      .get(`/users?id=${IDs[0]}${ids}`)
+      .then((r) => {
+        let data = [];
         for (let d in r.data.data) {
           data[d] = {
-            username:r.data.data[d].display_name,
-            profileImgURL:r.data.data[d].profile_image_url
-          }
+            username: r.data.data[d].display_name,
+            profileImgURL: r.data.data[d].profile_image_url,
+          };
         }
-        setUsersInfos(data)
-      }).catch((err) => console.error("Erro: " + err));
-    }, 1000)
-
-    return () => clearInterval(interval)
-  }, [])
+        setUsersInfos(data);
+      })
+      .catch((err) => console.error("Erro: " + err));
+  }, [IDs]);
 
   return (
     <div>
@@ -65,6 +66,10 @@ function UserSection({ icon, type, users, chanel }) {
         <p>{`${usersInfos.length} ${type}`}</p>
       </div>
       <User users={usersInfos} />
+      <div>
+        {mods}
+        {IDs}
+      </div>
     </div>
   );
 }
