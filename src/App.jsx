@@ -12,6 +12,7 @@ function App() {
   const [chanel, setChanel] = useState(localStorage.getItem("chanel") || 0);
   const [mod, setMod] = useState(localStorage.getItem("mod") || 0);
   const [chatters, setChatters] = useState([]);
+  const [count, setCount] = useState(0);
 
   const chanel_login = "ojoojao";
   const mod_login = chanel_login;
@@ -56,7 +57,7 @@ function App() {
           const users_ids = r.data.data.map((user) => {
             return user.user_id;
           });
-
+          
           setChatters(users_ids);
         })
         .catch((err) => console.error("Erro: " + err));
@@ -65,10 +66,22 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    for (let c in chatters) {
+      if (
+        chatters[c] == 19264788 || 
+        chatters[c] == 459116718 || 
+        chatters[c] == 100135110
+      ) { 
+        setCount(count+1)
+      }
+    }
+  }, [chatters])
+
   return (
     <div>
       <Header />
-      <Counter count={chatters.length} />
+      <Counter count={chatters.length - count >= 0 ? chatters.length - count : 0} />
       <UserSection
         icon={<IconMod />}
         type={"Moderadores"}
