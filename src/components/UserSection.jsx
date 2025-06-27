@@ -70,9 +70,9 @@ function UserSection({ icon, type, chatters, chanel }) {
 
   return (
     <div>
-      <details className="flex gap-2 mt-8 ml-8 mr-8 pl-1.5 py-1.5  bg-[#1F1F23]">
+      <details>
         <summary>
-          <div>
+          <div className="flex gap-2 mt-8 ml-8 mr-8 pl-1.5 py-1.5  bg-[#1F1F23]">
             {icon}
             <p>{`${usersInfos.length} ${type}`}</p>
           </div>
