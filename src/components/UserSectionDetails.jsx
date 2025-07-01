@@ -45,17 +45,17 @@ function UserSection({ icon, type, chatters, chanel }) {
         .then((r) => {
           let data = [];
           for (let d in r.data.data) {
-            if (
+            /*if (
               r.data.data[d].display_name != "ojoojao" &&
               r.data.data[d].display_name != "Nightbot" &&
               r.data.data[d].display_name != "StreamElements"
-            ) {
+            ) {*/
               data[d] = {
                 id: r.data.data[d].id,
                 username: r.data.data[d].display_name,
                 profileImgURL: r.data.data[d].profile_image_url,
               };
-            }
+            //}
           }
 
           setUsersInfos(data.sort(function(a, b) {
@@ -70,13 +70,17 @@ function UserSection({ icon, type, chatters, chanel }) {
 
   return (
     <div>
-      <div className="flex gap-2 mt-8 ml-8 mr-8 pl-1.5 py-1.5 hover:bg-[#28282e] bg-[#1F1F23]">
-        {icon}
-        <p>{`${usersInfos.length} ${type}`}</p>
-      </div>
-      <div>
-        <User users={usersInfos} />
-      </div>
+      <details>
+        <summary>
+          <div className="flex gap-2 mt-8 ml-8 mr-8 pl-1.5 py-1.5 hover:bg-[#28282e] bg-[#1F1F23]">
+            {icon}
+            <p>{`${usersInfos.length} ${type}`}</p>
+          </div>
+        </summary>
+        <div>
+          <User users={usersInfos} />
+        </div>
+      </details>
     </div>
   );
 }
