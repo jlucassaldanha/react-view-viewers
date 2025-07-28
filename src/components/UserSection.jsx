@@ -45,17 +45,17 @@ function UserSection({ icon, type, chatters, chanel }) {
         .then((r) => {
           let data = [];
           for (let d in r.data.data) {
-            if (
+            /*if (
               r.data.data[d].display_name != "ojoojao" &&
               r.data.data[d].display_name != "Nightbot" &&
               r.data.data[d].display_name != "StreamElements"
-            ) {
+            ) {*/
               data[d] = {
                 id: r.data.data[d].id,
                 username: r.data.data[d].display_name,
                 profileImgURL: r.data.data[d].profile_image_url,
               };
-            }
+            //}
           }
 
           setUsersInfos(data.sort(function(a, b) {

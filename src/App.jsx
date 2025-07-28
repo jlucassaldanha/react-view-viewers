@@ -72,7 +72,7 @@ function App() {
         chatters[c] == 19264788 || 
         chatters[c] == 459116718 || 
         chatters[c] == 100135110
-      ) { 
+      ) {
         setCount(count+1)
       }
     }
@@ -80,8 +80,8 @@ function App() {
 
   return (
     <div>
-      <Header />
-      <Counter count={chatters.length - count >= 0 ? chatters.length - count : 0} />
+      <Header><h2>Espectadores</h2></Header>
+      <Counter count={chatters.length /*chatters.length - count >= 0 ? chatters.length - count : 0*/} />
       <UserSection
         icon={<IconMod />}
         type={"Moderadores"}
