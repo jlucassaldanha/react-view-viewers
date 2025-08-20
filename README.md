@@ -6,7 +6,7 @@
 [![Axios](https://img.shields.io/badge/Axios-API-blue?logo=axios)](https://axios-http.com/)
 
 ## 📌 Sobre o projeto
-O **React View Viewers** é a segunda versão da aplicação web que consome a **API da Twitch** para exibir informações visualizações em live.  
+O **React View Viewers** é a segunda versão da aplicação web que consome a **API da Twitch** para exibir visualizações da minha stream.
 O projeto foi desenvolvido como forma de **praticar o uso de React e consumo de APIs** a principio configurado apenas para a minha conta da Twitch.
 
 🔹 Este projeto passou por **3 versões de evolução**:
