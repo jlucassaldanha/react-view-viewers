@@ -20,7 +20,7 @@ O projeto foi desenvolvido como forma de **praticar o uso de React e consumo de 
 - **Consumo de API:** Axios
 
 ## 🎯 Funcionalidades
-- Exibção de visualizações de canal da Twitch em tempo real
+- Exibição de visualizações de canal da Twitch em tempo real
 
 ## 🖼️ Preview
 ![Screenshot da tela de visualização](./preview-2.png)
