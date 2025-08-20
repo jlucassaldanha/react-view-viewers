@@ -1,7 +1,7 @@
 # 🎮 View Viewers
 
 [![Made with React](https://img.shields.io/badge/React-18-61dafb?logo=react)](https://react.dev)
-[![JavaScript](https://img.shields.io/badge/JavaScript?logo=javascript)](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
+[![JavaScript](https://shields.io/badge/JavaScript-ES6-f7df1e?logo=JavaScript)](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38bdf8?logo=tailwind-css)](https://tailwindcss.com/)
 [![Axios](https://img.shields.io/badge/Axios-API-blue?logo=axios)](https://axios-http.com/)
 
